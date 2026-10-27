@@ -1,41 +1,40 @@
-# Painel ACADEPOL IP 2026/2027
+# Painel ACADEPOL IP 2026/2027 · Turma 3
 
-Dashboard interativo para organizar disciplinas, acompanhamento de horas/aula, avaliações, calendário, diário de atividades e comparações com a matriz de 2024.
+Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui 72 registros da grade Turma 3 de 24/09 a 31/10/2026 (242 h/a estimadas até 27/10 e 20 h/a programadas), sinalizando campos ilegíveis e a prova de Socorros de Urgência.
 
-## Acessar online
+## Acesso
 
-Depois de ativar o GitHub Pages nas configurações do repositório, o painel estará disponível em:
+GitHub Pages: <https://josuecarpino.github.io/painel-acadepol-ip-2026/>
 
-**https://josuecarpino.github.io/painel-acadepol-ip-2026/**
+Site HTML puro, sem instalação. Dados locais permanecem guardados no navegador e backups JSON/CSV podem ser gerados. O repositório é público; **não** adicione dados pessoais/boletins/credenciais ao código.
 
-## Publicação com GitHub Pages
+## Sincronização opcional com Firebase
 
-1. No GitHub, acesse **Settings → Pages**.
-2. Em **Build and deployment**, escolha **Deploy from a branch**.
-3. Escolha a branch **main**, pasta **/(root)** e salve.
-4. O `index.html` é a página inicial. Não há dependências, servidor ou build.
+O painel está integrado com Firebase Authentication (e-mail/senha) e Cloud Firestore. O projeto Web configurado por padrão é `financas-1c48a`, que foi previamente fornecido pelo proprietário. Pode ser substituído dentro de **Configurações → Firebase → Trocar projeto Firebase**. **O Firebase não estará operacional antes da configuração do console e das regras de segurança.**
 
-## Privacidade e armazenamento
+Para conectar o projeto:
 
-- O conteúdo do `index.html`, incluindo a matriz e nomes de docentes que aparecem no painel, fica publicamente acessível após a publicação.
-- Não publique a planilha Excel original ou dados pessoais/administrativos sigilosos.
-- As alterações (aulas, notas, observações, datas, status) são guardadas em **localStorage**, no navegador em que o painel foi usado. **Não há sincronização entre aparelhos.**
-- Para backup e transferência entre navegadores, exporte o JSON no painel e importe no outro navegador.
-- A marcação `noindex` pede aos buscadores que não indexem o site, mas **não protege sua privacidade**.
+1. Abra [Firebase Console](https://console.firebase.google.com/), selecione o projeto `financas-1c48a` (ou outro projeto de sua preferência).
+2. Em **Authentication → Sign-in method**, habilite **Email/Password**. Não habilite login anônimo se não precisar dele. Confirme que o site está autorizado caso a plataforma solicite.
+3. Em **Firestore Database**, crie um banco de dados, caso ainda não exista. Use **modo de produção**, sem regras de teste públicas.
+4. Em **Firestore → Rules**, autorize apenas o documento `users/{uid}/acadepol/state` para o próprio UID autenticado. Use a referência de `firestore-acadepol.rules.example`. **Se o Firebase também hospeda seu sistema financeiro, incorpore apenas o bloco específico para ACADEPOL às regras existentes; não substitua todas as regras, pois isso poderia quebrar o outro aplicativo.**
+5. Abra o painel publicado → **Configurações** → **Firebase**. Entre com seu e-mail/senha do Firebase Authentication ou crie uma conta por essa tela.
+6. Na primeira conexão, se sua nuvem ainda estiver vazia, clique **Enviar meus dados para o Firebase**. Se já houver backup, escolha entre **Usar dados da nuvem** e **Enviar dados locais**. Faça um backup JSON antes de substituir qualquer versão.
+7. Em um segundo dispositivo, abra o mesmo endereço e entre com a **mesma conta Firebase**. Se aparecer a escolha de versão, prefira **Usar dados da nuvem** para trazer os dados anteriormente enviados.
 
-## Observações sobre os dados
+### Onde ficam as informações
 
-- A matriz da turma atual apresenta 22 disciplinas principais e meta total de 1.022 h/a.
-- A matriz histórica de 2024 é usada como referência de estimativa; não é a carga oficial da turma atual.
-- A previsão de conclusão está inicialmente em **12/03/2027**, editável no painel.
+Coleção/documento: `users/{uid}/acadepol/state`, contendo versão, conteúdo serializado do painel, data de atualização e identificador da sessão. Cada usuário tem um UID próprio; não são criadas coleções públicas de avaliações ou diários.
 
-## Grade da Turma 3 (atualização em 27/10/2026)
+### Cuidados
 
-- Transcrição consolidada das capturas da grade de **24/09 a 31/10/2026**, com 72 entradas incluindo folgas, feriado e lacunas.
-- Pré-lançamento de **61 blocos/avaliações até 27/10**: **242 h/a inferidas**, sujeitas à confirmação de realização, frequência e duração. Os pré-lançamentos são idempotentes e preservam registros anteriores do navegador.
-- **20 h/a programadas a partir de 28/10**, não computadas como realizadas. Dois blocos ilegíveis (`####`) não entram nas horas.
-- O exame de **Socorros de Urgência de 22/10 (16h30–17h50)** é considerado **2 h/a**; os demais blocos cheios foram estimados em **4 h/a**. A equivalência em 40 minutos/hora-aula é uma referência e precisa ser validada com a grade da ACADEPOL.
-- A aba **Grade Turma 3** permite consultar, buscar, filtrar e exportar a grade em CSV. As provas são cadastradas sem inventar nota ou resultado.
-- Há correspondências disciplinares aproximadas, identificadas na interface, e atividades mantidas sem vínculo curricular quando o nome não permite associação segura.
+- A configuração Web do Firebase (`apiKey`, `projectId`, `appId`) é pública por natureza; **ela não substitui autenticação nem regras de acesso**. Nunca publique chaves de serviço ou credenciais administrativas.
+- Os salvamentos são feitos localmente primeiro. Quando conectado, o app sincroniza automaticamente alterações e oferece resolução manual de conflito entre dispositivos; em caso de erro ou falta de rede, mantenha um backup JSON e tente sincronizar depois.
+- Dados da grade e estimativas são referências provisórias; frequência e horas confirmadas devem ser corrigidas manualmente.
+- O Firestore exige configuração e pode gerar custos dependendo do uso e do plano.
 
-**Atenção:** a nova versão preserva a versão de armazenamento local anterior e não sincroniza dados entre dispositivos. Antes de revisar ou corrigir registros, exporte um backup JSON. O cronograma da Turma 3 e os locais de aulas listados no código são públicos porque o repositório também é público.
+## Referências
+
+- [Firebase Authentication – E-mail e senha](https://firebase.google.com/docs/auth/web/password-auth)
+- [Cloud Firestore Security Rules](https://firebase.google.com/docs/firestore/security/rules-conditions)
+- [GitHub Pages](https://docs.github.com/en/pages)
