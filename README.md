@@ -28,3 +28,14 @@ Depois de ativar o GitHub Pages nas configurações do repositório, o painel es
 - A matriz da turma atual apresenta 22 disciplinas principais e meta total de 1.022 h/a.
 - A matriz histórica de 2024 é usada como referência de estimativa; não é a carga oficial da turma atual.
 - A previsão de conclusão está inicialmente em **12/03/2027**, editável no painel.
+
+## Grade da Turma 3 (atualização em 27/10/2026)
+
+- Transcrição consolidada das capturas da grade de **24/09 a 31/10/2026**, com 72 entradas incluindo folgas, feriado e lacunas.
+- Pré-lançamento de **61 blocos/avaliações até 27/10**: **242 h/a inferidas**, sujeitas à confirmação de realização, frequência e duração. Os pré-lançamentos são idempotentes e preservam registros anteriores do navegador.
+- **20 h/a programadas a partir de 28/10**, não computadas como realizadas. Dois blocos ilegíveis (`####`) não entram nas horas.
+- O exame de **Socorros de Urgência de 22/10 (16h30–17h50)** é considerado **2 h/a**; os demais blocos cheios foram estimados em **4 h/a**. A equivalência em 40 minutos/hora-aula é uma referência e precisa ser validada com a grade da ACADEPOL.
+- A aba **Grade Turma 3** permite consultar, buscar, filtrar e exportar a grade em CSV. As provas são cadastradas sem inventar nota ou resultado.
+- Há correspondências disciplinares aproximadas, identificadas na interface, e atividades mantidas sem vínculo curricular quando o nome não permite associação segura.
+
+**Atenção:** a nova versão preserva a versão de armazenamento local anterior e não sincroniza dados entre dispositivos. Antes de revisar ou corrigir registros, exporte um backup JSON. O cronograma da Turma 3 e os locais de aulas listados no código são públicos porque o repositório também é público.
