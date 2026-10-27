@@ -1,0 +1,14 @@
+// Exemplo para dados individuais ACADEPOL.
+ // Se o projeto tambem abriga o aplicativo financeiro, NAO substitua todas as regras atuais.
+ // Copie APENAS o match abaixo para dentro de match /databases/{database}/documents.
+ // Verifique que nao ha outra regra ampla liberando esse mesmo caminho.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid}/acadepol/{documento} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == uid
+        && documento == 'state';
+    }
+  }
+}
