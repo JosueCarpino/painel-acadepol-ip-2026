@@ -8,6 +8,30 @@ GitHub Pages: <https://josuecarpino.github.io/painel-acadepol-ip-2026/>
 
 Site HTML puro, sem instalação. Dados locais permanecem guardados no navegador e backups JSON/CSV podem ser gerados. O repositório é público; **não** adicione dados pessoais/boletins/credenciais ao código.
 
+## Carga horária prevista (matriz PDF CFTP 2026)
+
+A nova matriz recebida em 27/10/2026 informa **1.022 horas-aula**, com uma hora-aula de **40 minutos**. A distribuição adotada pelo painel é:
+
+| Categoria | Carga prevista |
+|---|---:|
+| 22 disciplinas principais | 918 h/a |
+| Quatro módulos adicionais (Aprendizagem Participativa 12; Sistema de Justiça Criminal/Gênero 8; Exercício de Gerenciamento de Crises 16; Exercício de Inteligência Policial 8) | 44 h/a |
+| Subtotal de disciplinas | **962 h/a** |
+| Cinco palestras de 4 h/a | 20 h/a |
+| Estágios curriculares | 40 h/a |
+| **Total previsto** | **1.022 h/a** |
+
+Os 27 subtópicos da matriz foram associados às 22 disciplinas do painel. **Subtópicos já incluídos na carga principal não são somados uma segunda vez**. Na planilha do painel, Investigação de Crimes contra o Meio Ambiente está agrupada em Investigação Policial (12 h/a de seus 132 h/a), embora a matriz PDF a apresente em linha própria.
+
+Em **Disciplinas**, o painel agora mostra as horas previstas em 2026, siglas, períodos informados e barras de progresso baseadas nos lançamentos. A aba **Referência 2024** continua disponível separadamente. Em **Disciplinas** ou **Configurações**, a opção **Matriz 2026 CSV** exporta todas as linhas, inclusive os módulos e as palestras. Metas personalizadas existentes não são apagadas.
+
+### Divergências preservadas da fonte
+
+- O PDF informa **1.022 h/a** no total consolidado, mas também menciona **974 h/a do CFTP** no rodapé. O painel usa o total consolidado de 1.022 h/a sem tentar explicar a diferença.
+- Alguns números de períodos são inconsistentes com a carga informada (por exemplo, Teoria Geral da Investigação: 28 h/a / 6 períodos; Investigação Patrimonial: 12 h/a / 6 períodos). Foram mantidos os dois valores escritos no documento, sem correção arbitrária.
+- O número de períodos no subtotal geral também não reconcilia perfeitamente com a soma das linhas. Os **totais em h/a** são a referência para os indicadores.
+- As horas registradas incluem pré-lançamentos de grade que dependem de validação de presença. Metas previstas não são, por si sós, horas cursadas.
+
 ## Sincronização com Firebase ACADEPOL
 
 O painel utiliza **exclusivamente** o projeto Firebase separado `acadepol-ae423`, com a configuração Web fornecida pelo proprietário. O projeto financeiro anterior NÃO é acessado e não é necessário instalar `firebase` com npm: o site no GitHub Pages importa o SDK no navegador.
