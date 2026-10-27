@@ -1,7 +1,6 @@
-// Exemplo para dados individuais ACADEPOL.
- // Se o projeto tambem abriga o aplicativo financeiro, NAO substitua todas as regras atuais.
- // Copie APENAS o match abaixo para dentro de match /databases/{database}/documents.
- // Verifique que nao ha outra regra ampla liberando esse mesmo caminho.
+// Aplicar somente no Firebase separado: acadepol-ae423.
+// Firestore Database > Rules: copie o texto a seguir e publique.
+// Somente o usuário autenticado pode acessar o próprio estado.
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
