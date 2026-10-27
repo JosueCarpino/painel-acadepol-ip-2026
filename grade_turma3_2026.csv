@@ -1,0 +1,73 @@
+Data;Início;Fim;Bloco;Atividade;Disciplina vinculada;Tipo;h/a inferidas;Qualidade;Observação
+2026-09-24;08:00;10:50;A;Aula magna;EXTRA;Palestra;4;grade;Aula inaugural
+2026-09-24;12:20;15:10;B;Sistema de Justiça Criminal / Gênero;EXTRA;Aula teórica;4;grade;Disciplinas correlatas não confirmadas na matriz
+2026-09-25;08:00;10:50;A;Conduta Policial;4;Aula teórica;4;grade;
+2026-09-25;12:20;15:10;B;Sistema de Justiça Criminal / Gênero;EXTRA;Aula teórica;4;grade;Disciplinas correlatas não confirmadas na matriz
+2026-09-25;15:20;18:10;C;Reconhecimento visuográfico;EXTRA;Aula teórica;4;grade;Disciplina equivalente não identificada com segurança
+2026-09-26;08:00;10:50;A;Informática Policial;14;Aula teórica;4;grade;
+2026-09-26;12:20;15:10;B;Defesa Pessoal / Condicionamento (GOE);3;Aula prática;4;grade;Local: GOE
+2026-09-28;08:00;10:50;A;Direito Administrativo;7;Aula teórica;4;grade;Correspondência com Direito Administrativo Disciplinar — conferir
+2026-09-28;12:20;15:10;B;Direito Administrativo;7;Aula teórica;4;grade;Correspondência com Direito Administrativo Disciplinar — conferir
+2026-09-29;08:00;10:50;A;Comunicação e Documentação;20;Aula teórica;4;grade;
+2026-09-29;12:20;15:10;B;Socorros de Urgência;21;Aula teórica;4;grade;
+2026-09-29;15:20;18:10;C;Socorros de Urgência;21;Aula teórica;4;grade;
+2026-09-30;08:00;10:50;A;Armamento — teoria;1;Aula teórica;4;grade;
+2026-09-30;12:20;15:10;B;Armamento — teoria;1;Aula teórica;4;grade;
+2026-09-30;15:20;18:10;C;Conduta Policial (ETECAP);4;Aula prática;4;grade;Local: ETECAP
+2026-10-01;08:00;10:50;A;Socorros de Urgência;21;Aula teórica;4;grade;
+2026-10-01;12:20;15:10;B;Defesa Pessoal / Condicionamento (GOE);3;Aula prática;4;grade;Local: GOE
+2026-10-02;08:00;10:50;A;Direito Administrativo (UEP2);7;Aula teórica;4;grade;"Local: UEP2; correspondência disciplinar aproximada"
+2026-10-02;12:20;15:10;B;Conduta Policial (GM Campinas);4;Aula prática;4;grade;Local: Guarda Municipal de Campinas
+2026-10-03;08:00;10:50;A;Folga;EXTRA;Folga;0;sem-aula;Sem aulas previstas
+2026-10-05;08:00;10:50;A;Direito Administrativo;7;Aula teórica;4;grade;Correspondência com Direito Administrativo Disciplinar — conferir
+2026-10-05;12:20;15:10;B;História da Polícia Civil;13;Aula teórica;4;grade;
+2026-10-06;08:00;10:50;A;Direitos Humanos;8;Aula teórica;4;grade;
+2026-10-06;12:20;15:10;B;Direitos Humanos;8;Aula teórica;4;grade;
+2026-10-06;15:20;18:10;C;Medicina Legal;6;Aula teórica;4;grade;Disciplina atual: Criminalística e Medicina Legal
+2026-10-07;08:00;10:50;A;Papiloscopia;18;Aula teórica;4;grade;
+2026-10-07;12:20;15:10;B;Papiloscopia;18;Aula teórica;4;grade;
+2026-10-07;15:20;18:10;C;Papiloscopia;18;Aula teórica;4;grade;
+2026-10-08;08:00;10:50;A;Socorros de Urgência;21;Aula teórica;4;grade;
+2026-10-08;12:20;15:10;B;Defesa Pessoal / Condicionamento (GOE);3;Aula prática;4;grade;Local: GOE
+2026-10-09;08:00;10:50;A;Armamento — teoria;1;Aula teórica;4;grade;
+2026-10-09;12:20;15:10;B;Armamento — teoria;1;Aula teórica;4;grade;
+2026-10-10;08:00;10:50;A;Conduta Policial (GM Campinas);4;Aula prática;4;grade;Local: Guarda Municipal de Campinas
+2026-10-10;12:20;15:10;B;História da Polícia Civil;13;Aula teórica;4;grade;
+2026-10-13;08:00;10:50;A;Direitos Humanos;8;Aula teórica;4;grade;
+2026-10-13;12:20;15:10;B;Direitos Humanos;8;Aula teórica;4;grade;
+2026-10-13;15:20;18:10;C;História da Polícia Civil;13;Aula teórica;4;grade;
+2026-10-14;08:00;10:50;A;Armamento — teoria;1;Aula teórica;4;grade;
+2026-10-14;12:20;15:10;B;Armamento — teoria;1;Aula teórica;4;grade;
+2026-10-15;08:00;10:50;A;Defesa Pessoal / Condicionamento (GOE);3;Aula prática;4;grade;Local: GOE
+2026-10-15;12:20;15:10;B;Gestão de Atendimento ao Público (GAP);11;Aula teórica;4;grade;
+2026-10-16;08:00;10:50;A;Armamento (GOE);1;Aula prática;4;grade;Local: GOE
+2026-10-16;12:20;15:10;B;Armamento (GOE);1;Aula prática;4;grade;Local: GOE
+2026-10-17;08:00;10:50;A;História da Polícia Civil;13;Aula teórica;4;grade;
+2026-10-17;12:20;15:10;B;Conduta Policial (GM Campinas);4;Aula prática;4;grade;Local: Guarda Municipal de Campinas
+2026-10-19;08:00;10:50;A;Comunicação e Documentação;20;Aula teórica;4;grade;
+2026-10-19;12:20;15:10;B;Gestão de Atendimento ao Público (GAP);11;Aula teórica;4;grade;
+2026-10-20;08:00;10:50;A;Direitos Humanos;8;Aula teórica;4;grade;
+2026-10-20;12:20;15:10;B;Direitos Humanos;8;Aula teórica;4;grade;
+2026-10-21;08:00;10:50;A;Papiloscopia;18;Aula teórica;4;grade;
+2026-10-21;12:20;15:10;B;Papiloscopia;18;Aula teórica;4;grade;
+2026-10-21;15:20;18:10;C;Papiloscopia;18;Aula teórica;4;grade;
+2026-10-22;08:00;10:50;A;Medicina Legal;6;Aula teórica;4;grade;Disciplina atual: Criminalística e Medicina Legal
+2026-10-22;12:20;15:10;B;Defesa Pessoal / Condicionamento (GOE);3;Aula prática;4;grade;Local: GOE
+2026-10-22;16:30;17:50;X;Prova de Socorros de Urgência;21;Avaliação;2;grade;"Prova de 16h30 a 17h50, auditório ETECAP; resultado não informado"
+2026-10-23;08:00;10:50;A;Direito Administrativo (UEP2);7;Aula teórica;4;grade;"Local: UEP2; correspondência disciplinar aproximada"
+2026-10-23;12:20;15:10;B;Direito Administrativo (UEP2);7;Aula teórica;4;grade;"Local: UEP2; correspondência disciplinar aproximada"
+2026-10-24;08:00;10:50;A;Folga;EXTRA;Folga;0;sem-aula;Sem aulas previstas
+2026-10-26;08:00;10:50;A;Comunicação e Documentação;20;Aula teórica;4;grade;
+2026-10-26;12:20;15:10;B;Medicina Legal;6;Aula teórica;4;grade;Disciplina atual: Criminalística e Medicina Legal
+2026-10-26;15:20;18:10;C;Gestão de Atendimento ao Público (GAP);11;Aula teórica;4;grade;
+2026-10-27;08:00;10:50;A;Informática Policial (UEP2);14;Aula teórica;4;grade;Local: UEP2
+2026-10-27;12:20;15:10;B;Informática Policial (UEP2);14;Aula teórica;4;grade;Local: UEP2
+2026-10-27;15:20;18:10;C;Disciplina ilegível na imagem (########);EXTRA;Aula teórica;0;incompleto;Texto ilegível: não contar carga horária até confirmação
+2026-10-28;08:00;10:50;A;Armamento — estande GM Paulínia;1;Aula prática;4;grade;Local: Guarda Municipal de Paulínia
+2026-10-28;12:20;15:10;B;Armamento — estande GM Paulínia;1;Aula prática;4;grade;Local: Guarda Municipal de Paulínia
+2026-10-28;15:20;18:10;C;Disciplina ilegível na imagem (########);EXTRA;Aula teórica;0;incompleto;Texto ilegível: não contar carga horária até confirmação
+2026-10-29;08:00;10:50;A;Defesa Pessoal / Condicionamento (GOE);3;Aula prática;4;grade;Local: GOE
+2026-10-29;12:20;15:10;B;Exercício de Polícia Judiciária (UEP2);9;Aula teórica;4;grade;Local: UEP2
+2026-10-29;15:20;18:10;C;Exercício de Polícia Judiciária (UEP2);9;Aula teórica;4;grade;Local: UEP2
+2026-10-30;08:00;10:50;A;Dia do Servidor Público;EXTRA;Feriado;0;sem-aula;Sem aulas previstas
+2026-10-31;08:00;10:50;A;Folga;EXTRA;Folga;0;sem-aula;Sem aulas previstas
