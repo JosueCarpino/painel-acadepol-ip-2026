@@ -1,12 +1,14 @@
 # Painel ACADEPOL IP 2026/2027 · Turma 3
 
-Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui 72 registros da grade Turma 3 de 24/09 a 31/10/2026 (242 h/a estimadas até 27/10 e 20 h/a programadas), sinalizando campos ilegíveis e a prova de Socorros de Urgência.
+Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui 85 registros da grade Turma 3 de 24/09 a 07/11/2026. As aulas legíveis de 03 e 04/11 (20 h/a) foram marcadas realizadas a pedido do usuário; os registros de 05 a 07/11 (24 h/a) permanecem programados. Campos ilegíveis seguem sem carga; presença individual ainda depende de conferência.
 
 ## Acesso
 
 GitHub Pages: <https://josuecarpino.github.io/painel-acadepol-ip-2026/>
 
 Site HTML puro, sem instalação. Dados locais permanecem guardados no navegador e backups JSON/CSV podem ser gerados. O repositório é público; **não** adicione dados pessoais/boletins/credenciais ao código.
+
+A grade de novembro aparece no painel online e no arquivo `grade_turma3_2026.csv`. Ao conectar o Firebase, registros importados da grade são reconciliados sem duplicar IDs. Dados manuais existentes devem ser preservados; faça backup JSON antes de escolher substituir uma versão da nuvem.
 
 ## Carga horária prevista (matriz PDF CFTP 2026)
 
