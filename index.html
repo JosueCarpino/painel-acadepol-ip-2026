@@ -299,6 +299,15 @@ async function cloudLogout(){if(cloud.dirty&&!confirm('Existem alterações aind
 function cloudRefFor(uid){return cloud.sdk.fs.doc(cloud.db,'users',uid,'acadepol','state')}
 function cloudParseRemote(record){if(!record||typeof record.payload!=='string')return null;const data=JSON.parse(record.payload);if(!cloudStateIsValid(data))throw Error('O backup na nuvem tem formato inválido.');return data}
 function cloudStop(){clearTimeout(cloud.writeTimer);if(cloud.unsubscribe){cloud.unsubscribe();cloud.unsubscribe=null}cloud.user=null;cloud.ref=null;cloud.remote=null;cloud.revision=0;cloud.ready=false;cloud.dirty=false;cloud.writing=false;}
+function cloudOnlyScheduleMigration(remote){
+ if(!remote||!Array.isArray(remote.logs)||Number(state.scheduleRevision||0)<=Number(remote.scheduleRevision||0))return false;
+ const ids=new Set(remote.logs.map(l=>l.id));
+ const additions=state.logs.filter(l=>!ids.has(l.id));
+ // Não resolver silenciosamente conflitos com registros manuais ou desconhecidos.
+ if(!additions.length||additions.some(l=>!l.gradeImported||l.date>GRADE_CUTOFF||!SRC.schedule.some(g=>g.id===l.id)))return false;
+ const oldState={...state,logs:state.logs.filter(l=>ids.has(l.id)),scheduleRevision:remote.scheduleRevision};
+ return JSON.stringify(oldState)===JSON.stringify(remote);
+}
 async function cloudAuthChanged(user){cloudStop();cloud.user=user;
  if(!user){cloudSetPhase('signedout');return}
  const uid=user.uid;cloud.ref=cloudRefFor(uid);cloud.connectedUid=uid;cloudSetPhase('reading','Lendo seu backup no Firestore...');
@@ -307,7 +316,7 @@ async function cloudAuthChanged(user){cloudStop();cloud.user=user;
   cloud.remote=snap.exists()?cloudParseRemote(snap.data()):null;
   if(!cloud.remote){cloudSetPhase('empty');return}
   const stamp=JSON.parse(localStorage.getItem(CLOUD_STAMP_KEY)||'null');
-  if(JSON.stringify(state)===JSON.stringify(cloud.remote)||stamp?.uid===uid&&stamp?.revision===cloud.revision&&stamp?.project===cloud.config.projectId&&stamp?.signature===cloudSignature(JSON.stringify(state))){cloudAdopt(cloud.remote);return}
+  if(JSON.stringify(state)===JSON.stringify(cloud.remote)||stamp?.uid===uid&&stamp?.revision===cloud.revision&&stamp?.project===cloud.config.projectId&&stamp?.signature===cloudSignature(JSON.stringify(state))||cloudOnlyScheduleMigration(cloud.remote)){cloudAdopt(cloud.remote);return}
   cloudSetPhase('choice','Escolha conscientemente a versão que deverá ser mantida. Nenhuma será apagada sem confirmação.');
  }catch(e){if(cloud.user?.uid!==uid)return;cloudSetPhase('error',cloudErrorText(e))}
 }
