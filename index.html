@@ -238,10 +238,9 @@ function findScheduleLog(g){return state.logs.find(x=>x.id===g.id)}
 function scheduleLabel(g){
   if(g.status==='sem-aula')return 'Sem aula';
   if(g.status==='incompleto')return 'A confirmar';
-  if(g.date>GRADE_CUTOFF)return 'Programada';
-  const record=findScheduleLog(g);return record?.gradeConfirmed?'Realizada':record?'Pré-lançada':'Sem lançamento';
+  const record=findScheduleLog(g);if(record?.gradeConfirmed)return 'Realizada';if(record)return 'Pré-lançada';return g.date>localDate(new Date())?'Programada':'Não lançada';
 }
-function scheduleBadge(g){const t=scheduleLabel(g);return badge(t,g.status==='sem-aula'?'':g.status==='incompleto'?'red':g.date>GRADE_CUTOFF?'blue':findScheduleLog(g)?.gradeConfirmed?'green':findScheduleLog(g)?'blue':'');}
+function scheduleBadge(g){const t=scheduleLabel(g);return badge(t,g.status==='sem-aula'?'':g.status==='incompleto'?'red':t==='Realizada'?'green':t==='Não lançada'?'yellow':'blue');}
 function dateDay(iso){return dateFmt(iso,{weekday:'short',day:'2-digit',month:'short'});}
 function updateScheduleQuery(v){scheduleQuery=v;const p=document.activeElement?.selectionStart||v.length;renderTimetable();const e=document.getElementById('scheduleSearch');if(e){e.focus();e.setSelectionRange(p,p)}}
 function changeScheduleFilter(v){scheduleViewFilter=v;renderTimetable()}
@@ -249,29 +248,33 @@ function jumpToGradeMonth(dt){calMonth=Number(dt.slice(5,7))-1;calYear=Number(dt
 function scheduleActions(g){const l=findScheduleLog(g);
   if(g.status!=='grade')return '<span class="muted-small">Sem lançamento</span>';
   if(l)return `<button class="btn btn-sm" onclick="openLogModal('','','${esc(l.id)}')">Revisar registro</button>`;
-  if(g.date<=GRADE_CUTOFF)return `<button class="btn btn-sm" onclick="openLogModal('${esc(g.subjectId==='EXTRA'?'':g.subjectId)}','${esc(g.date)}')">Lançar</button>`;
+  if(g.date<=localDate(new Date()))return `<button class="btn btn-sm" onclick="openLogModal('${esc(g.subjectId==='EXTRA'?'':g.subjectId)}','${esc(g.date)}')">Registrar aula</button>`;
   return `<button class="btn btn-sm" onclick="jumpToGradeMonth('${g.date}')">Ver no calendário</button>`;
 }
 function renderTimetable(){
  const today=localDate(new Date()),all=SRC.schedule;
- const actual=all.filter(x=>x.date<=GRADE_CUTOFF&&x.hours);
- const programmed=all.filter(x=>x.date>GRADE_CUTOFF&&x.hours);
+ const confirmedGrade=all.filter(x=>findScheduleLog(x)?.gradeConfirmed&&x.hours);
+ const programmed=all.filter(x=>x.date>today&&x.hours);
  const dubious=all.filter(x=>x.status==='incompleto');
- const hours=actual.reduce((a,x)=>a+x.hours,0);
+ const hours=confirmedGrade.reduce((a,x)=>a+x.hours,0);
  const uniqueDays=new Set(all.map(x=>x.date)).size;
  const shown=all.filter(g=>norm([g.title,g.date,g.type,g.note,g.subjectId].join(' ')).includes(norm(scheduleQuery))&&(scheduleViewFilter==='all'||
-   (scheduleViewFilter==='historic'&&g.date<=GRADE_CUTOFF&&g.hours>0)||
-   (scheduleViewFilter==='future'&&g.date>GRADE_CUTOFF&&g.hours>0)||
-   (scheduleViewFilter==='issues'&&(g.status!=='grade'||(g.date<=GRADE_CUTOFF&&!findScheduleLog(g))))));
- let previous='';let rows='';
+   (scheduleViewFilter==='historic'&&g.date<=today&&g.hours>0)||
+   (scheduleViewFilter==='future'&&g.date>today&&g.hours>0)||
+   (scheduleViewFilter==='issues'&&(g.status!=='grade'||(g.date<=today&&!findScheduleLog(g))))));
+ let previous='';let rows='';let mobileCards='';
  for(const g of shown){
-  if(g.date!==previous){rows+=`<tr class="grade-day"><td colspan="6"><strong>${esc(dateDay(g.date))}</strong> <span class="muted-small">${g.date<=GRADE_CUTOFF?'Período anterior':'Programação futura'}</span></td></tr>`;previous=g.date}
+  if(g.date!==previous){rows+=`<tr class="grade-day"><td colspan="6"><strong>${esc(dateDay(g.date))}</strong> <span class="muted-small">${g.date<=today?'Data atual ou anterior':'Programação futura'}</span></td></tr>`;mobileCards+=`<div class="ux-card-day">${esc(dateDay(g.date))} · ${g.date<=today?'Data atual ou anterior':'Programação futura'}</div>`;previous=g.date}
+  mobileCards+=`<article class="ux-mobile-card">
+   <div class="ux-mobile-head"><div><div class="ux-mobile-title">${esc(g.title)}</div><div class="ux-mobile-sub">${esc(g.start)}–${esc(g.end)} · ${g.hours?number(g.hours)+' h/a':'Carga não confirmada'}</div></div>${scheduleBadge(g)}</div>
+   <div class="ux-mobile-sub">${g.note?esc(g.note):g.subjectId==='EXTRA'?'Atividade sem disciplina vinculada':esc(curSubject(g.subjectId)?.title||'')}</div>
+   <div class="ux-mobile-actions">${scheduleActions(g)}</div></article>`;
   rows+=`<tr><td class="nowrap"><strong>${esc(g.start)}–${esc(g.end)}</strong><span class="cell-sub">${g.slot==='X'?'Prova (horário especial)':g.slot==='A'?'1ª–4ª aulas':g.slot==='B'?'5ª–8ª aulas':'9ª–12ª aulas'}</span></td><td class="name-cell"><strong>${esc(g.title)}</strong>${g.note?`<span class="cell-sub">${esc(g.note)}</span>`:''}</td><td>${g.subjectId==='EXTRA'?'Sem vínculo confirmado':esc(curSubject(g.subjectId)?.title||'–')}</td><td class="nowrap">${g.hours?number(g.hours)+' h/a':'—'}</td><td>${scheduleBadge(g)}</td><td class="nowrap">${scheduleActions(g)}</td></tr>`;
  }
- section('timetable').innerHTML=`${intro('Grade de aulas · Turma 3','Transcrição consolidada dos horários enviados, de 24/09 a 31/10/2026 · Sala 1. Blocos de quatro h/a são inferidos a partir da grade.',`<button class="btn" onclick="exportScheduleCSV()">⇩ Exportar grade CSV</button>`)}
-  <div class="historical-cards" style="grid-template-columns:repeat(4,1fr)"><div class="soft-box"><div class="kicker">Dias no cronograma</div><div class="hist-num">${uniqueDays}</div><div class="muted-small">inclui folgas e feriado</div></div><div class="soft-box"><div class="kicker">Horas pré-programadas até 27/10</div><div class="hist-num">${number(hours)} <span style="font-size:12px">h/a</span></div><div class="muted-small">pré-lançadas, conferir</div></div><div class="soft-box"><div class="kicker">Horas programadas após 27/10</div><div class="hist-num">${number(programmed.reduce((a,x)=>a+x.hours,0))} <span style="font-size:12px">h/a</span></div><div class="muted-small">não incluídas como realizadas</div></div><div class="soft-box"><div class="kicker">Campos ilegíveis</div><div class="hist-num">${dubious.length}</div><div class="muted-small">não computados</div></div></div>
-  <div class="alert blue mt16"><span>ⓘ</span><div>Fonte: capturas do quadro <strong>CFTP IP 2026 — IP Turma 3</strong>. Cada bloco de dois pares (ex.: 08h–10h50) representa <strong>4 h/a inferidas</strong>; a prova de Socorros em 22/10 representa <strong>2 h/a</strong> (16h30–17h50). As aulas até 27/10 são pré-lançamentos para revisão, não comprovação de presença. Linhas ####, feriados e folgas não contam horas. Nomes abreviados foram associados à matriz apenas quando havia correspondência razoável.</div></div>
-  <article class="panel mt16"><div class="toolbar"><div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="scheduleSearch" class="field" placeholder="Buscar disciplina, local, data…" value="${esc(scheduleQuery)}" oninput="updateScheduleQuery(this.value)"></div><select class="field" aria-label="Filtrar grade" onchange="changeScheduleFilter(this.value)">${[['all','Toda a grade'],['historic','Até 27/10 · aulas'],['future','A partir de 28/10'],['issues','Pendências / folgas']].map(([v,t])=>`<option value="${v}" ${scheduleViewFilter===v?'selected':''}>${t}</option>`).join('')}</select></div><div class="table-holder"><table><thead><tr><th>HORÁRIO</th><th>ATIVIDADE</th><th>DISCIPLINA DA MATRIZ</th><th>CARGA</th><th>SITUAÇÃO</th><th>AÇÕES</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="empty-table">Nenhuma aula encontrada neste filtro.</td></tr>'}</tbody></table></div></article>`;
+ section('timetable').innerHTML=`${intro('Grade de aulas · Turma 3','Horários recebidos de 24/09 até '+dateFmt(all[all.length-1].date)+' · Sala 1. Blocos de quatro h/a inferidos da grade; confirme sua presença.',`<button class="btn" onclick="exportScheduleCSV()">⇩ Exportar grade CSV</button>`)}
+  <div class="historical-cards" style="grid-template-columns:repeat(4,1fr)"><div class="soft-box"><div class="kicker">Dias no cronograma</div><div class="hist-num">${uniqueDays}</div><div class="muted-small">inclui folgas e feriado</div></div><div class="soft-box"><div class="kicker">Aulas marcadas realizadas</div><div class="hist-num">${number(hours)} <span style="font-size:12px">h/a</span></div><div class="muted-small">registros da grade com realização marcada</div></div><div class="soft-box"><div class="kicker">Horas programadas futuras</div><div class="hist-num">${number(programmed.reduce((a,x)=>a+x.hours,0))} <span style="font-size:12px">h/a</span></div><div class="muted-small">não incluídas como realizadas</div></div><div class="soft-box"><div class="kicker">Campos ilegíveis</div><div class="hist-num">${dubious.length}</div><div class="muted-small">não computados</div></div></div>
+  <div class="alert blue mt16"><span>ⓘ</span><div>Fonte: capturas do quadro <strong>CFTP IP 2026 — IP Turma 3</strong>. Cada bloco de dois pares (ex.: 08h–10h50) representa <strong>4 h/a inferidas</strong>; a prova de Socorros em 22/10 representa <strong>2 h/a</strong> (16h30–17h50). Pré-lançamentos não comprovam presença individual; a marcação "Realizada" é um registro informado, não uma validação oficial. Linhas ####, feriados e folgas não contam horas. Nomes abreviados foram associados à matriz apenas quando havia correspondência razoável.</div></div>
+  <article class="panel mt16"><div class="toolbar"><div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="scheduleSearch" class="field" placeholder="Buscar disciplina, local, data…" value="${esc(scheduleQuery)}" oninput="updateScheduleQuery(this.value)"></div><select class="field" aria-label="Filtrar grade" onchange="changeScheduleFilter(this.value)">${[['all','Toda a grade'],['historic','Até hoje · aulas'],['future','Próximos dias'],['issues','Pendências / folgas']].map(([v,t])=>`<option value="${v}" ${scheduleViewFilter===v?'selected':''}>${t}</option>`).join('')}</select></div><div class="table-holder"><table><thead><tr><th>HORÁRIO</th><th>ATIVIDADE</th><th>DISCIPLINA DA MATRIZ</th><th>CARGA</th><th>SITUAÇÃO</th><th>AÇÕES</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="empty-table">Nenhuma aula encontrada neste filtro.</td></tr>'}</tbody></table></div><div class="ux-mobile-list" aria-label="Aulas da grade filtrada">${mobileCards||'<div class="ux-empty">Nenhuma aula encontrada neste filtro.</div>'}</div></article>`;
 }
 function exportScheduleCSV(){const rows=[['Data','Início','Fim','Bloco','Disciplina da grade','Vínculo com matriz','Tipo','Carga estimada h/a','Situação','Observações']];
  for(const g of SRC.schedule)rows.push([g.date,g.start,g.end,g.slot,g.title,g.subjectId==='EXTRA'?'Sem vínculo':curSubject(g.subjectId)?.title||'',g.type,g.hours,scheduleLabel(g),g.note]);
