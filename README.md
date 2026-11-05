@@ -34,6 +34,18 @@ Em **Disciplinas**, o painel agora mostra as horas previstas em 2026, siglas, pe
 - O número de períodos no subtotal geral também não reconcilia perfeitamente com a soma das linhas. Os **totais em h/a** são a referência para os indicadores.
 - As horas registradas incluem pré-lançamentos de grade que dependem de validação de presença. Metas previstas não são, por si sós, horas cursadas.
 
+## Melhorias UI/UX (novembro de 2026)
+
+A interface usa a folha de estilos `ui-ux.css` (além dos estilos embutidos). Melhorias:
+
+- **Celular:** calendário empilhado em uma coluna e dias selecionáveis; disciplinas e grade em cartões responsivos, sem rolagem horizontal das tabelas. As tabelas originais continuam no desktop.
+- **Visão geral:** próximas aulas, pendências e duas categorias de horas: **marcadas como realizadas** (inclui entradas manuais do usuário) e **pré-lançadas** (aulas importadas da grade ainda sem confirmação).
+- **Grade:** filtros calculados em relação ao dia de acesso, busca aceita `dd/mm`, datas atualizadas sem referência fixa a outubro. É possível marcar uma aula pré-lançada como realizada ou reverter a marcação.
+- **Acessibilidade:** botão explícito para abrir disciplinas, retorno de foco ao fechar diálogos e navegação por teclado contida dentro de diálogos abertos. Contraste do texto secundário foi reforçado.
+- **Firebase:** hora da última sincronização confirmada, comparação quantitativa de registros locais e remotos, e download de backup JSON antes de substituir uma versão. As regras e o projeto Firebase não foram alterados.
+
+**Interpretação dos indicadores:** “marcada realizada” significa declaração no painel, não comprovação institucional de presença. Pré-lançamentos não são somados ao percentual principal de realização. Os totais originais das aulas importadas continuam recuperáveis no diário e nos backups. Sempre confirme `Nuvem sincronizada` antes de depender de outro dispositivo.
+
 ## Sincronização com Firebase ACADEPOL
 
 O painel utiliza **exclusivamente** o projeto Firebase separado `acadepol-ae423`, com a configuração Web fornecida pelo proprietário. O projeto financeiro anterior NÃO é acessado e não é necessário instalar `firebase` com npm: o site no GitHub Pages importa o SDK no navegador.
