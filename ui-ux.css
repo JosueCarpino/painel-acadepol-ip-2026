@@ -86,3 +86,13 @@ body[data-theme=dark]{--muted:#b6c8e0}
  .section,.drawer,.modal,.btn{animation:none!important;transition:none!important}
  html{scroll-behavior:auto}
 }
+
+/* Projeções de carga horária separadas da confirmação de presença */
+.ux-reconcile.ux-projection{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ux-projection .soft-box{min-width:0}
+.ux-projection .ux-info-number{font-variant-numeric:tabular-nums}
+#timetable .tag.purple{white-space:normal;line-height:1.25}
+@media(max-width:600px){
+ .ux-reconcile.ux-projection{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ux-projection .soft-box:last-child{grid-column:1/-1}
+}
