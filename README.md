@@ -1,6 +1,6 @@
 # Painel ACADEPOL IP 2026/2027 · Turma 3
 
-Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui 85 registros da grade Turma 3 de 24/09 a 07/11/2026. As aulas legíveis de 03 e 04/11 (20 h/a) foram marcadas realizadas a pedido do usuário; os registros de 05 a 07/11 (24 h/a) permanecem programados. Campos ilegíveis seguem sem carga; presença individual ainda depende de conferência.
+Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui **97 blocos de grade**, de 24/09 a 14/11/2026. A semana de 09–14/11 contém **40 h/a legíveis**, marcadas **concluídas somente para cálculo/projeção**, não como frequência efetiva. Os dois blocos ilegíveis de 11 e 14/11 não recebem horas. As aulas anteriores já marcadas como realizadas continuam preservadas; outros lançamentos exigem conferência.
 
 ## Acesso
 
@@ -9,6 +9,23 @@ GitHub Pages: <https://josuecarpino.github.io/painel-acadepol-ip-2026/>
 Site HTML puro, sem instalação. Dados locais permanecem guardados no navegador e backups JSON/CSV podem ser gerados. O repositório é público; **não** adicione dados pessoais/boletins/credenciais ao código.
 
 A grade de novembro aparece no painel online e no arquivo `grade_turma3_2026.csv`. Ao conectar o Firebase, registros importados da grade são reconciliados sem duplicar IDs. Dados manuais existentes devem ser preservados; faça backup JSON antes de escolher substituir uma versão da nuvem.
+
+## Grade 09–14/11/2026: conclusão antecipada para cálculo
+
+A pedido do usuário em **08/11/2026**, a programação de **09 a 14/11** foi importada com a marcação **“Concluída (cálculo)”**. Trata-se de projeção antecipada, não de aula realizada nem de frequência confirmada. A projeção pode ser desfeita na aba **Grade Turma 3**; depois que a data ocorrer, a aula também poderá ser marcada como efetivamente realizada.
+
+| Atividade | h/a consideradas para cálculo |
+|---|---:|
+| Armamento (GOE e estande GM Jundiaí) | 12 |
+| Informática Policial (UEP2) | 8 |
+| Ética Policial | 8 |
+| Defesa Pessoal e Condicionamento (GOE) | 4 |
+| Estágio | 8 |
+| **Total projetado** | **40** |
+
+As células ilegíveis de 11/11 (primeiro bloco) e 14/11 (segundo bloco) não foram contabilizadas, e o estágio aparece como **atividade curricular**, não como uma das 22 disciplinas principais.
+
+O indicador principal soma **horas informadas realizadas + projeções solicitadas**; pré-lançamentos pendentes ficam fora do progresso. O diário completo inclui todos os tipos de registro. Projeções importadas usam IDs estáveis para não se duplicar no navegador ou no Firebase.
 
 ## Carga horária prevista (matriz PDF CFTP 2026)
 
