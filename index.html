@@ -81,7 +81,7 @@ function courseLogs(){return state.logs.filter(l=>!isStudy(l))}
 function totalHours(){return courseLogs().reduce((a,l)=>a+(+l.hours||0),0)}
 function reportedHours(){return courseLogs().filter(l=>!l.gradeImported||l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
 function projectedHours(){return courseLogs().filter(l=>l.gradeImported&&l.gradeProjected&&!l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
-function preloggedHours(){return courseLogs().filter(l=>l.gradeImported&&!l.gradeConfirmed&&!l.gradeProjected).reduce((a,l)=>a+(+l.hours||0),0)}
+function preloggedHours(){return courseLogs().filter(l=>l.gradeImported&&!l.gradeConfirmed&&!l.gradeProjected&&l.date<='2026-11-07').reduce((a,l)=>a+(+l.hours||0),0)}
 // O cálculo acumulado mantém todas as cargas anteriormente importadas, incluindo as pré-lançadas.
 // Entre 05 e 07/11, a grade já existia, mas 24 h/a não foram importadas: complementar virtualmente
 // sem alterar os registros de frequência ou o Firestore e sem duplicar registros manuais/por bloco.
@@ -102,7 +102,7 @@ function historicalGradeComplement(){
  });
 }
 function complementaryHours(){return historicalGradeComplement().reduce((a,l)=>a+l.hours,0)}
-function progressLogs(){return [...courseLogs(),...historicalGradeComplement()]}
+function progressLogs(){return [...courseLogs().filter(l=>!l.gradeImported||l.gradeConfirmed||l.gradeProjected||l.date<='2026-11-07'),...historicalGradeComplement()]}
 function progressHours(){return progressLogs().reduce((a,l)=>a+(+l.hours||0),0)}
 function gradeSummary(){const previous=SRC.schedule.filter(g=>g.date<='2026-11-07').reduce((a,g)=>a+(+g.hours||0),0),
  newWeek=SRC.schedule.filter(g=>g.date>='2026-11-09'&&g.date<='2026-11-14').reduce((a,g)=>a+(+g.hours||0),0);
