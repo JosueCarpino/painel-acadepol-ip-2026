@@ -80,7 +80,10 @@ function isStudy(l){return l.type==='Estudo pessoal'}
 function courseLogs(){return state.logs.filter(l=>!isStudy(l))}
 function totalHours(){return courseLogs().reduce((a,l)=>a+(+l.hours||0),0)}
 function reportedHours(){return courseLogs().filter(l=>!l.gradeImported||l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
-function preloggedHours(){return courseLogs().filter(l=>l.gradeImported&&!l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
+function projectedHours(){return courseLogs().filter(l=>l.gradeImported&&l.gradeProjected&&!l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
+function progressHours(){return reportedHours()+projectedHours()}
+function preloggedHours(){return courseLogs().filter(l=>l.gradeImported&&!l.gradeConfirmed&&!l.gradeProjected).reduce((a,l)=>a+(+l.hours||0),0)}
+function progressLogs(){return courseLogs().filter(l=>!l.gradeImported||l.gradeConfirmed||l.gradeProjected)}
 function dashboardPanels(){
  const today=localDate(new Date());
  const coming=SRC.schedule.filter(g=>g.date>=today&&g.status==='grade'&&g.hours>0).slice(0,4);
@@ -99,8 +102,8 @@ function dashboardPanels(){
 }
 
 function personalHours(){return state.logs.filter(isStudy).reduce((a,l)=>a+(+l.hours||0),0)}
-function additionalModuleHours(subid){return courseLogs().filter(l=>l.subId===subid).reduce((a,l)=>a+(+l.hours||0),0)}
-function subjectHours(id){const current=curSubject(id);const extras=new Set(current?.children.filter(c=>c.extraHours).map(c=>c.id)||[]);return courseLogs().filter(l=>l.subjectId===id&&!extras.has(l.subId)).reduce((a,l)=>a+(+l.hours||0),0)}
+function additionalModuleHours(subid){return progressLogs().filter(l=>l.subId===subid).reduce((a,l)=>a+(+l.hours||0),0)}
+function subjectHours(id){const current=curSubject(id);const extras=new Set(current?.children.filter(c=>c.extraHours).map(c=>c.id)||[]);return progressLogs().filter(l=>l.subjectId===id&&!extras.has(l.subId)).reduce((a,l)=>a+(+l.hours||0),0)}
 function getExamDate(s){return override(s.id).examDate||s.examDate||''}
 function isExamEligible(s){return examKind(s)!=='none'&& (examKind(s)!=='unknown'||getExamDate(s)||override(s.id).examResult||override(s.id).grade)}
 function chartMax(a){return Math.max(1,...a)}
@@ -228,24 +231,28 @@ async function importJSONFile(event){const f=event.target.files?.[0];event.targe
 function csvQuote(x){return '"'+String(x??'').replace(/"/g,'""')+'"'}
 function exportCSV(which){let rows=[];if(which==='logs'){rows=[['Data','Matéria/atividade','Subtópico','Tipo','Carga h/a','Observações'],...state.logs.map(l=>[l.date,logSubjectName(l),l.subId,l.type,l.hours,l.note])]}else if(which==='planned'){rows=[['Tipo','Código','Disciplina / módulo','Prevista h/a','Períodos informados','Tratamento da carga'],...SRC.current.flatMap(s=>[['Disciplina principal',s.expectedCode,s.title,s.expectedHours,s.expectedPeriods,'Contar em 918 h/a'],...s.children.map(x=>['Subtópico',x.expectedCode,x.title,x.expectedHours,x.expectedPeriods,x.extraHours?'Adicional: somar às 918 h/a':'Já incluído na disciplina principal'])]),...SRC.lectures.map(x=>['Palestra',x.title,x.title,x.expectedHours,x.expectedPeriods,'Somar após 962 h/a']),['Estágio','ESTAGIO','Estágio durante o CFTP',META.plannedInternshipHours,10,'Somar após palestras']]}else if(which==='historic'){rows=[['Número','Disciplina 2024','Sigla','Horas/aula','Períodos','Prova','Linha fonte'],...SRC.old.map(x=>[x.id,x.title,x.code,x.hours,x.periods,x.exam,x.sourceRow])]}else{rows=[['Número','Disciplina atual','Código 2026','Prevista 2026 h/a','Períodos 2026','Professor(es)','Prova','Data da prova','Meta personalizada h/a','Horas lançadas h/a','Referência 2024 h/a','Status','Nota','Resultado','Observações'],...SRC.current.map(s=>{const o=override(s.id);return [s.id,s.title,s.expectedCode,s.expectedHours,s.expectedPeriods,teacher(s),QUALS.find(x=>x[0]===examKind(s))?.[1],getExamDate(s),o.goalHours??'',subjectHours(s.id),s.historicHours,effectiveStatus(s),o.grade||'',o.examResult||'',o.notes||'']})]};download('academia-'+which+'-'+localDate(new Date())+'.csv','text/csv;charset=utf-8','\ufeff'+rows.map(r=>r.map(csvQuote).join(';')).join('\r\n'));toast('CSV exportado.');}
 // Grade CFTP IP Turma 3: fonte fixa de referência para a agenda e pré-lançamentos históricos.
-const GRADE_CUTOFF=META.scheduleLastImported;
-const GRADE_VERSION=2;
+// Marco da importação histórica: não antecipar 05–07/11 nem futuros não projetados.
+const GRADE_CUTOFF='2026-11-04';
+const GRADE_VERSION=3;
 function hydrateScheduleImports(){
   if(state.scheduleRevision===GRADE_VERSION)return;
   const oldVersion=Number(state.scheduleRevision||0);
-  // Nunca sobrescrever lançamentos manuais, reimportar entradas removidas anteriormente, nem importar atividades futuras.
+  // Nunca sobrescrever lançamentos manuais ou reimportar exclusões da grade antiga.
+  // Somente as aulas com projectedForCalculation podem entrar antes da data real.
   const existingManual=state.logs.filter(l=>!l.gradeImported);
   function manuallyCovered(g){return existingManual.some(l=>l.date===g.date&&l.subjectId===g.subjectId&&(g.subjectId!=='EXTRA'||norm([l.note,l.activityLabel].join(' ')).includes(norm(g.title))))}
   const known=new Set(state.logs.map(l=>l.id));
   for(const g of SRC.schedule){
-    if(g.date>GRADE_CUTOFF || !g.hours || known.has(g.id))continue;
-    if(oldVersion>=1 && g.date<'2026-10-28')continue; // preservar remoções/edições da grade anterior
+    if((g.date>GRADE_CUTOFF&&!g.projectedForCalculation)||!g.hours||known.has(g.id))continue;
+    if(oldVersion>=1&&g.date<'2026-10-28')continue; // preservar exclusões anteriores
+    if(oldVersion>=2&&g.date<'2026-11-09')continue; // não importar 05–07/11 sem confirmação
     if(manuallyCovered(g))continue;
     const confirmed=g.date>='2026-11-03'&&g.date<='2026-11-04';
+    const projected=Boolean(g.projectedForCalculation);
     state.logs.push({id:g.id,date:g.date,hours:g.hours,subjectId:g.subjectId,
       activityLabel:g.subjectId==='EXTRA'?g.title:'',subId:g.subId||'',type:g.type,
-      note:'Grade Turma 3 · '+g.start+'–'+g.end+' · '+g.title+(g.note?' · '+g.note:'')+(confirmed?' · Aula marcada realizada a pedido do usuário em 04/11/2026; presença individual não verificada':' · Pré-lançamento, confirmar realização e presença'),
-      gradeImported:true,gradeConfirmed:confirmed,gradeSlot:g.slot});
+      note:'Grade Turma 3 · '+g.start+'–'+g.end+' · '+g.title+(g.note?' · '+g.note:'')+(projected?' · CONCLUÍDA APENAS PARA CÁLCULO, projeção antecipada em 08/11/2026; não comprova realização/frequência':confirmed?' · Aula marcada realizada a pedido do usuário em 04/11/2026; presença individual não verificada':' · Pré-lançamento, confirmar realização e presença'),
+      gradeImported:true,gradeConfirmed:confirmed,gradeProjected:projected,gradeSlot:g.slot});
   }
   state.logs.sort((a,b)=>b.date.localeCompare(a.date));
   state.scheduleRevision=GRADE_VERSION;
@@ -363,7 +370,7 @@ function cloudOnlyScheduleMigration(remote){
  const ids=new Set(remote.logs.map(l=>l.id));
  const additions=state.logs.filter(l=>!ids.has(l.id));
  // Não resolver silenciosamente conflitos com registros manuais ou desconhecidos.
- if(!additions.length||additions.some(l=>!l.gradeImported||l.date>GRADE_CUTOFF||!SRC.schedule.some(g=>g.id===l.id)))return false;
+ if(!additions.length||additions.some(l=>!l.gradeImported||(l.date>GRADE_CUTOFF&&!l.gradeProjected)||!SRC.schedule.some(g=>g.id===l.id)))return false;
  const oldState={...state,logs:state.logs.filter(l=>ids.has(l.id)),scheduleRevision:remote.scheduleRevision};
  return JSON.stringify(oldState)===JSON.stringify(remote);
 }
