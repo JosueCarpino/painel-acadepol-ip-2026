@@ -25,7 +25,19 @@ A pedido do usuário em **08/11/2026**, a programação de **09 a 14/11** foi im
 
 As células ilegíveis de 11/11 (primeiro bloco) e 14/11 (segundo bloco) não foram contabilizadas, e o estágio aparece como **atividade curricular**, não como uma das 22 disciplinas principais.
 
-O indicador principal soma **horas informadas realizadas + projeções solicitadas**; pré-lançamentos pendentes ficam fora do progresso. O diário completo inclui todos os tipos de registro. Projeções importadas usam IDs estáveis para não se duplicar no navegador ou no Firebase.
+### Revisão do acumulado — 08/11/2026
+
+A grade da nova semana **soma** às anteriores: 262 h/a de 24/09 a 31/10 + 44 h/a de 03 a 07/11 + 40 h/a da semana 09–14/11 = **346 h/a previstas no acumulado da grade**, ou **33,9% de 1.022 h/a**. Células `########`, folgas e feriados permanecem sem carga.
+
+O indicador anterior mostrava **60 h/a** porque considerava apenas 20 h/a marcadas realizadas e 40 h/a projetadas. Excluía indevidamente **262 h/a** de registros antigos pré-lançados e **24 h/a** da grade de 05–07/11 que ainda não tinham sido importadas para o diário. O novo acumulado considera todos esses períodos, sem substituir ou apagar registros anteriores.
+
+**Como o cálculo funciona:**
+- as horas existentes no diário entram uma única vez, mesmo quando ainda são pré-lançamentos;
+- as 24 h/a de 05–07/11 que faltavam são acrescentadas **virtualmente ao cálculo**, por dia e disciplina, somente na parcela que ainda não tem lançamento equivalente; isso preserva suas edições manuais e não cria frequência fictícia no Firebase;
+- as 40 h/a de 09–14/11 continuam como projeções antecipadas e podem ser desativadas individualmente;
+- o diário exibe separadamente o total efetivamente salvo e o acumulado usado no cálculo, incluindo a diferença explicada. A exportação de diário CSV identifica os complementos virtuais.
+
+O total real do usuário pode diferir das **346 h/a de referência**, caso tenha ajustado, excluído ou acrescentado aulas. **São horas para planejamento, não comprovação de frequência institucional nem conclusão integral das matérias.**
 
 ## Carga horária prevista (matriz PDF CFTP 2026)
 
@@ -56,7 +68,7 @@ Em **Disciplinas**, o painel agora mostra as horas previstas em 2026, siglas, pe
 A interface usa a folha de estilos `ui-ux.css` (além dos estilos embutidos). Melhorias:
 
 - **Celular:** calendário empilhado em uma coluna e dias selecionáveis; disciplinas e grade em cartões responsivos, sem rolagem horizontal das tabelas. As tabelas originais continuam no desktop.
-- **Visão geral:** próximas aulas, pendências e duas categorias de horas: **marcadas como realizadas** (inclui entradas manuais do usuário) e **pré-lançadas** (aulas importadas da grade ainda sem confirmação).
+- **Visão geral:** próximas aulas, pendências e quatro categorias de horas: realizadas informadas, pré-lançadas anteriores, complemento da grade antiga e projeção da semana atual. O percentual principal soma essas parcelas para fins de planejamento, sem confundir com frequência confirmada.
 - **Grade:** filtros calculados em relação ao dia de acesso, busca aceita `dd/mm`, datas atualizadas sem referência fixa a outubro. É possível marcar uma aula pré-lançada como realizada ou reverter a marcação.
 - **Acessibilidade:** botão explícito para abrir disciplinas, retorno de foco ao fechar diálogos e navegação por teclado contida dentro de diálogos abertos. Contraste do texto secundário foi reforçado.
 - **Firebase:** hora da última sincronização confirmada, comparação quantitativa de registros locais e remotos, e download de backup JSON antes de substituir uma versão. As regras e o projeto Firebase não foram alterados.
