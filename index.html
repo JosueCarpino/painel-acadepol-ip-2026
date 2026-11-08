@@ -81,9 +81,33 @@ function courseLogs(){return state.logs.filter(l=>!isStudy(l))}
 function totalHours(){return courseLogs().reduce((a,l)=>a+(+l.hours||0),0)}
 function reportedHours(){return courseLogs().filter(l=>!l.gradeImported||l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
 function projectedHours(){return courseLogs().filter(l=>l.gradeImported&&l.gradeProjected&&!l.gradeConfirmed).reduce((a,l)=>a+(+l.hours||0),0)}
-function progressHours(){return reportedHours()+projectedHours()}
 function preloggedHours(){return courseLogs().filter(l=>l.gradeImported&&!l.gradeConfirmed&&!l.gradeProjected).reduce((a,l)=>a+(+l.hours||0),0)}
-function progressLogs(){return courseLogs().filter(l=>!l.gradeImported||l.gradeConfirmed||l.gradeProjected)}
+// O cálculo acumulado mantém todas as cargas anteriormente importadas, incluindo as pré-lançadas.
+// Entre 05 e 07/11, a grade já existia, mas 24 h/a não foram importadas: complementar virtualmente
+// sem alterar os registros de frequência ou o Firestore e sem duplicar registros manuais/por bloco.
+function historicalGradeComplement(){
+ const original=courseLogs(), buckets=new Map();
+ for(const g of SRC.schedule){
+   if(g.date<'2026-11-05'||g.date>'2026-11-07'||!g.hours||g.status!=='grade')continue;
+   const key=g.date+'|'+g.subjectId;
+   if(!buckets.has(key))buckets.set(key,{date:g.date,subjectId:g.subjectId,subId:g.subId||'',type:g.type,hours:0,title:g.title});
+   buckets.get(key).hours+=(+g.hours||0);
+ }
+ return [...buckets.values()].flatMap(g=>{
+   const registered=original.filter(l=>l.date===g.date&&l.subjectId===g.subjectId).reduce((s,l)=>s+(+l.hours||0),0);
+   const missing=Math.max(0,g.hours-registered);
+   return missing>0?[{id:'complemento-'+g.date+'-'+g.subjectId,date:g.date,subjectId:g.subjectId,
+     subId:g.subId,type:g.type,hours:missing,gradeImported:true,gradeProjected:true,calculationOnly:true,
+     note:'Grade anterior (05–07/11): complemento para cálculo; não comprova realização nem frequência'}]:[];
+ });
+}
+function complementaryHours(){return historicalGradeComplement().reduce((a,l)=>a+l.hours,0)}
+function progressLogs(){return [...courseLogs(),...historicalGradeComplement()]}
+function progressHours(){return progressLogs().reduce((a,l)=>a+(+l.hours||0),0)}
+function gradeSummary(){const previous=SRC.schedule.filter(g=>g.date<='2026-11-07').reduce((a,g)=>a+(+g.hours||0),0),
+ newWeek=SRC.schedule.filter(g=>g.date>='2026-11-09'&&g.date<='2026-11-14').reduce((a,g)=>a+(+g.hours||0),0);
+ return {previous,newWeek,total:previous+newWeek}}
+
 function dashboardPanels(){
  const today=localDate(new Date());
  const coming=SRC.schedule.filter(g=>g.date>=today&&g.status==='grade'&&g.hours>0).slice(0,4);
