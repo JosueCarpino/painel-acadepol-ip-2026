@@ -84,3 +84,15 @@ Data;Início;Fim;Bloco;Atividade;Disciplina vinculada;Tipo;h/a inferidas;Qualida
 2026-11-06;15:20;18:10;C;Atividade ilegível (########);EXTRA;Aula teórica;0;incompleto;"Texto ilegível na imagem (########): duração não contabilizada; confirmação necessária"
 2026-11-07;08:00;10:50;A;Teoria Geral da Investigação;17;Aula teórica;4;programada;Módulo 17.3 — Teoria Geral da Investigação
 2026-11-07;12:20;15:10;B;Teoria Geral da Investigação;17;Aula teórica;4;programada;Módulo 17.3 — Teoria Geral da Investigação
+2026-11-09;08:00;10:50;A;Informática Policial (UEP2);14;Aula teórica;4;concluida_para_calculo;"Local: UEP2; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-09;12:20;15:10;B;Ética Policial;12;Aula teórica;4;concluida_para_calculo;"; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-10;08:00;10:50;A;Armamento (GOE);1;Aula prática;4;concluida_para_calculo;"Local: GOE; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-10;12:20;15:10;B;Ética Policial;12;Aula teórica;4;concluida_para_calculo;"; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-11;08:00;10:50;A;Atividade ilegível (########);EXTRA;Aula teórica;0;incompleto;"Planilha apresenta ########; disciplina e carga não confirmadas"
+2026-11-11;12:20;15:10;B;Estágio;ESTAGIO;Estágio;4;concluida_para_calculo;"Atividade de estágio indicada na grade; local não informado; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-12;08:00;10:50;A;Defesa Pessoal e Condicionamento (GOE);3;Aula prática;4;concluida_para_calculo;"Local: GOE; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-12;12:20;15:10;B;Informática Policial (UEP2);14;Aula teórica;4;concluida_para_calculo;"Local: UEP2; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-13;08:00;10:50;A;Armamento — estande GM Jundiaí;1;Aula prática;4;concluida_para_calculo;"Local: Guarda Municipal de Jundiaí; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-13;12:20;15:10;B;Armamento — estande GM Jundiaí;1;Aula prática;4;concluida_para_calculo;"Local: Guarda Municipal de Jundiaí; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-14;08:00;10:50;A;Estágio;ESTAGIO;Estágio;4;concluida_para_calculo;"Atividade de estágio indicada na grade; local não informado; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
+2026-11-14;12:20;15:10;B;Atividade ilegível (########);EXTRA;Aula teórica;0;incompleto;"Planilha apresenta ########; disciplina e carga não confirmadas"
