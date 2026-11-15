@@ -1,6 +1,6 @@
 # Painel ACADEPOL IP 2026/2027 · Turma 3
 
-Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui **97 blocos de grade**, de 24/09 a 14/11/2026. A semana de 09–14/11 contém **40 h/a legíveis**, marcadas **concluídas somente para cálculo/projeção**, não como frequência efetiva. Os dois blocos ilegíveis de 11 e 14/11 não recebem horas. As aulas anteriores já marcadas como realizadas continuam preservadas; outros lançamentos exigem conferência.
+Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui **105 registros de grade**, de 24/09 a 21/11/2026. As semanas de 09–14/11 (**40 h/a**) e de 16–21/11 (**22 h/a**) entram como **concluídas somente para cálculo**, não como frequência efetiva. Os dois blocos ilegíveis de 11 e 14/11 não recebem horas. As aulas anteriores já marcadas como realizadas continuam preservadas; outros lançamentos exigem conferência.
 
 ## Acesso
 
@@ -9,6 +9,24 @@ GitHub Pages: <https://josuecarpino.github.io/painel-acadepol-ip-2026/>
 Site HTML puro, sem instalação. Dados locais permanecem guardados no navegador e backups JSON/CSV podem ser gerados. O repositório é público; **não** adicione dados pessoais/boletins/credenciais ao código.
 
 A grade de novembro aparece no painel online e no arquivo `grade_turma3_2026.csv`. Ao conectar o Firebase, registros importados da grade são reconciliados sem duplicar IDs. Dados manuais existentes devem ser preservados; faça backup JSON antes de escolher substituir uma versão da nuvem.
+
+## Grade 16–21/11/2026: conclusão antecipada para cálculo
+
+A grade enviada em 15/11 acrescenta **22 h/a**, sem marcar presença, realização efetiva ou aprovação.
+
+| Data | Atividade | Horário | h/a |
+|---|---|---|---:|
+| 16/11 | Estágio | 09h–12h | 4 |
+| 16/11 | Prova de História Policial | 16h30–17h50 | 2 |
+| 17/11 | Conduta Policial | 08h–10h50 | 4 |
+| 18/11 | Estágio | 09h–12h | 4 |
+| 19/11 | Comunicação e Documentação | 08h–10h50 | 4 |
+| 19/11 | Defesa Pessoal e Condicionamento | 12h20–15h10 | 4 |
+| 20/11 | Consciência Negra | Feriado | 0 |
+| 21/11 | Facultativo | Sem carga na grade | 0 |
+| | **Total** | | **22** |
+
+Os estágios de 09h a 12h contam como 4 h/a estimadas por bloco, seguindo o padrão da grade anterior. O acumulado de referência passa de **346 para 368 h/a**, ou **36,0% de 1.022 h/a**. Os totais pessoais podem variar de acordo com os lançamentos e as projeções ativas no painel.
 
 ## Grade 09–14/11/2026: conclusão antecipada para cálculo
 
@@ -37,7 +55,7 @@ O indicador anterior mostrava **60 h/a** porque considerava apenas 20 h/a marcad
 - as 40 h/a de 09–14/11 continuam como projeções antecipadas e podem ser desativadas individualmente;
 - o diário exibe separadamente o total efetivamente salvo e o acumulado usado no cálculo, incluindo a diferença explicada. A exportação de diário CSV identifica os complementos virtuais.
 
-O total real do usuário pode diferir das **346 h/a de referência**, caso tenha ajustado, excluído ou acrescentado aulas. **São horas para planejamento, não comprovação de frequência institucional nem conclusão integral das matérias.**
+Na revisão de 08/11, o total do usuário podia diferir das **346 h/a de referência**, caso tenha ajustado, excluído ou acrescentado aulas. **São horas para planejamento, não comprovação de frequência institucional nem conclusão integral das matérias.**
 
 ## Carga horária prevista (matriz PDF CFTP 2026)
 
@@ -68,12 +86,12 @@ Em **Disciplinas**, o painel agora mostra as horas previstas em 2026, siglas, pe
 A interface usa a folha de estilos `ui-ux.css` (além dos estilos embutidos). Melhorias:
 
 - **Celular:** calendário empilhado em uma coluna e dias selecionáveis; disciplinas e grade em cartões responsivos, sem rolagem horizontal das tabelas. As tabelas originais continuam no desktop.
-- **Visão geral:** próximas aulas, pendências e quatro categorias de horas: realizadas informadas, pré-lançadas anteriores, complemento da grade antiga e projeção da semana atual. O percentual principal soma essas parcelas para fins de planejamento, sem confundir com frequência confirmada.
+- **Visão geral:** próximas aulas, pendências e quatro categorias de horas: realizadas informadas, pré-lançadas anteriores, complemento da grade antiga e projeções das semanas importadas. O percentual principal soma essas parcelas para fins de planejamento, sem confundir com frequência confirmada.
 - **Grade:** filtros calculados em relação ao dia de acesso, busca aceita `dd/mm`, datas atualizadas sem referência fixa a outubro. É possível marcar uma aula pré-lançada como realizada ou reverter a marcação.
 - **Acessibilidade:** botão explícito para abrir disciplinas, retorno de foco ao fechar diálogos e navegação por teclado contida dentro de diálogos abertos. Contraste do texto secundário foi reforçado.
 - **Firebase:** hora da última sincronização confirmada, comparação quantitativa de registros locais e remotos, e download de backup JSON antes de substituir uma versão. As regras e o projeto Firebase não foram alterados.
 
-**Interpretação dos indicadores:** “marcada realizada” significa declaração no painel, não comprovação institucional de presença. Pré-lançamentos não são somados ao percentual principal de realização. Os totais originais das aulas importadas continuam recuperáveis no diário e nos backups. Sempre confirme `Nuvem sincronizada` antes de depender de outro dispositivo.
+**Interpretação dos indicadores:** “marcada realizada” significa declaração no painel, não comprovação institucional de presença. Pré-lançamentos entram no percentual de planejamento, não comprovam realização e não contam como frequência. Os totais originais das aulas importadas continuam recuperáveis no diário e nos backups. Sempre confirme `Nuvem sincronizada` antes de depender de outro dispositivo.
 
 ## Sincronização com Firebase ACADEPOL
 

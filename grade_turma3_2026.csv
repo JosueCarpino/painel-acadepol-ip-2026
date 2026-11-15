@@ -96,3 +96,11 @@ Data;Início;Fim;Bloco;Atividade;Disciplina vinculada;Tipo;h/a inferidas;Qualida
 2026-11-13;12:20;15:10;B;Armamento — estande GM Jundiaí;1;Aula prática;4;concluida_para_calculo;"Local: Guarda Municipal de Jundiaí; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
 2026-11-14;08:00;10:50;A;Estágio;ESTAGIO;Estágio;4;concluida_para_calculo;"Atividade de estágio indicada na grade; local não informado; Carga antecipada para cálculo por solicitação de 08/11/2026; não comprova realização nem presença"
 2026-11-14;12:20;15:10;B;Atividade ilegível (########);EXTRA;Aula teórica;0;incompleto;"Planilha apresenta ########; disciplina e carga não confirmadas"
+2026-11-16;09:00;12:00;A;Estágio;ESTAGIO;Estágio;4;concluida_para_calculo;"Carga estimada de 4 h/a por bloco, seguindo o padrão do painel para estágio · Carga antecipada para cálculo por solicitação de 15/11/2026; não comprova realização nem presença"
+2026-11-16;16:30;17:50;X;Prova de História Policial;13;Avaliação;2;concluida_para_calculo;"Auditório ETECAP. Nota e resultado não informados. · Carga antecipada para cálculo por solicitação de 15/11/2026; não comprova realização nem presença"
+2026-11-17;08:00;10:50;A;Conduta Policial (GM Campinas);4;Aula prática;4;concluida_para_calculo;"Local: Guarda Municipal de Campinas · Carga antecipada para cálculo por solicitação de 15/11/2026; não comprova realização nem presença"
+2026-11-18;09:00;12:00;A;Estágio;ESTAGIO;Estágio;4;concluida_para_calculo;"Carga estimada de 4 h/a por bloco, seguindo o padrão do painel para estágio · Carga antecipada para cálculo por solicitação de 15/11/2026; não comprova realização nem presença"
+2026-11-19;08:00;10:50;A;Comunicação e Documentação;20;Aula teórica;4;concluida_para_calculo;"Carga antecipada para cálculo por solicitação de 15/11/2026; não comprova realização nem presença"
+2026-11-19;12:20;15:10;B;Defesa Pessoal e Condicionamento (GOE);3;Aula prática;4;concluida_para_calculo;"Local: GOE · Carga antecipada para cálculo por solicitação de 15/11/2026; não comprova realização nem presença"
+2026-11-20;;;D;Dia da Consciência Negra;EXTRA;Feriado;0;sem-aula;Sem carga horária na grade
+2026-11-21;;;D;Facultativo;EXTRA;Facultativo;0;sem-aula;Sem carga horária na grade
