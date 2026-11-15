@@ -83,13 +83,13 @@ Em **Disciplinas**, o painel agora mostra as horas previstas em 2026, siglas, pe
 
 ## Melhorias UI/UX (novembro de 2026)
 
-A interface usa a folha de estilos `ui-ux.css` (além dos estilos embutidos). Melhorias:
+A interface usa a folha de estilos `ui-ux.css`, além dos estilos embutidos.
 
-- **Celular:** calendário empilhado em uma coluna e dias selecionáveis; disciplinas e grade em cartões responsivos, sem rolagem horizontal das tabelas. As tabelas originais continuam no desktop.
-- **Visão geral:** próximas aulas, pendências e quatro categorias de horas: realizadas informadas, pré-lançadas anteriores, complemento da grade antiga e projeções das semanas importadas. O percentual principal soma essas parcelas para fins de planejamento, sem confundir com frequência confirmada.
-- **Grade:** filtros calculados em relação ao dia de acesso, busca aceita `dd/mm`, datas atualizadas sem referência fixa a outubro. É possível marcar uma aula pré-lançada como realizada ou reverter a marcação.
-- **Acessibilidade:** botão explícito para abrir disciplinas, retorno de foco ao fechar diálogos e navegação por teclado contida dentro de diálogos abertos. Contraste do texto secundário foi reforçado.
-- **Firebase:** hora da última sincronização confirmada, comparação quantitativa de registros locais e remotos, e download de backup JSON antes de substituir uma versão. As regras e o projeto Firebase não foram alterados.
+- **Visão geral:** o acumulado e o percentual aparecem primeiro, com a separação entre horas realizadas informadas, pré-lançamentos, complemento e projeções. Aulas e avaliações têm acesso direto. As análises por mês e por disciplina ficam em uma seção expansível.
+- **Grade:** abre na última programação recebida, com resumo da carga, busca por aula, local ou data e filtros rápidos para próximas aulas, projeções, pendências e histórico completo.
+- **Celular:** barra inferior com atalhos para Início, Grade, Agenda e Disciplinas. A grade usa cartões em telas menores. Todas as abas continuam disponíveis no menu Mais.
+- **Acessibilidade e navegação:** indicação do filtro ou aba ativa, foco de teclado no conteúdo após a navegação e links diretos para cada seção. O modo escuro, os atalhos existentes e o retorno de foco dos diálogos foram preservados.
+- **Firebase:** a lógica de sincronização, permissões, backups e registros permanece a mesma.
 
 **Interpretação dos indicadores:** “marcada realizada” significa declaração no painel, não comprovação institucional de presença. Pré-lançamentos entram no percentual de planejamento, não comprovam realização e não contam como frequência. Os totais originais das aulas importadas continuam recuperáveis no diário e nos backups. Sempre confirme `Nuvem sincronizada` antes de depender de outro dispositivo.
 
