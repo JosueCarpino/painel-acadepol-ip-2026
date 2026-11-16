@@ -83,6 +83,12 @@ Em **Disciplinas**, o painel agora mostra as horas previstas em 2026, siglas, pe
 
 ## Melhorias UI/UX (novembro de 2026)
 
+- **Agenda:** abre na semana atual e permite alternar para o mês. Ao selecionar um dia, separa aulas, provas, registros e projeções, com links para a grade e para o diário.
+- **Avaliações:** apresenta a situação por data e resultado registrado. Data passada, sem resultado, aparece como “Aguardando resultado”, sem presumir presença ou nota.
+- **Diário:** lista responsiva agrupada por data, com busca também por data, filtros de situação e carregamento em grupos de 15. Projeções são identificadas como “Só para cálculo”.
+- **Grade e disciplinas:** a busca da grade atualiza somente os resultados, sem substituir o campo durante a digitação. Os filtros de disciplinas têm ação de limpeza.
+- **Dados preservados:** estes ajustes não modificam a grade, os registros, o cálculo de horas ou as regras e a lógica do Firebase.
+
 A interface usa a folha de estilos `ui-ux.css`, além dos estilos embutidos.
 
 - **Visão geral:** o acumulado e o percentual aparecem primeiro, com a separação entre horas realizadas informadas, pré-lançamentos, complemento e projeções. Aulas e avaliações têm acesso direto. As análises por mês e por disciplina ficam em uma seção expansível.
