@@ -1,6 +1,6 @@
 # Painel ACADEPOL IP 2026/2027 · Turma 3
 
-Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui **105 registros de grade**, de 24/09 a 21/11/2026. As semanas de 09–14/11 (**40 h/a**) e de 16–21/11 (**22 h/a**) entram como **concluídas somente para cálculo**, não como frequência efetiva. Os dois blocos ilegíveis de 11 e 14/11 não recebem horas. As aulas anteriores já marcadas como realizadas continuam preservadas; outros lançamentos exigem conferência.
+Dashboard web estático com grade, disciplinas, avaliações, diário e comparação curricular. Inclui **121 registros de grade**, de 24/09 a 28/11/2026. A programação de 23 a 28/11 acrescenta **64 h/a previstas**, sem antecipar realização ou frequência. As semanas de 09–14/11 (**40 h/a**) e de 16–21/11 (**22 h/a**) entram como **concluídas somente para cálculo**, não como frequência efetiva. Os dois blocos ilegíveis de 11 e 14/11 não recebem horas. As aulas anteriores já marcadas como realizadas continuam preservadas; outros lançamentos exigem conferência.
 
 ## Acesso
 
@@ -9,6 +9,22 @@ GitHub Pages: <https://josuecarpino.github.io/painel-acadepol-ip-2026/>
 Site HTML puro, sem instalação. Dados locais permanecem guardados no navegador e backups JSON/CSV podem ser gerados. O repositório é público; **não** adicione dados pessoais/boletins/credenciais ao código.
 
 A grade de novembro aparece no painel online e no arquivo `grade_turma3_2026.csv`. Ao conectar o Firebase, registros importados da grade são reconciliados sem duplicar IDs. Dados manuais existentes devem ser preservados; faça backup JSON antes de escolher substituir uma versão da nuvem.
+
+## Grade 23–28/11/2026: programação futura
+
+A grade encaminhada em 20/11 apresenta **16 blocos de 4 h/a**, totalizando **64 h/a programadas**. Nenhum dos blocos foi marcado como realizado ou concluído apenas para cálculo. O acumulado de referência **permanece em 368 h/a**; a grade total disponível para planejamento soma **432 h/a** (368 + 64).
+
+| Data | 08h–10h50 (4 h/a) | 12h20–15h10 (4 h/a) | 15h20–18h10 (4 h/a) | Total |
+|---|---|---|---|---:|
+| 23/11 (seg.) | Informática (UEP2) | Gerenciamento de Crises | — | 8 |
+| 24/11 (ter.) | Organização Crim. | Organização Crim. | Organização Crim. | 12 |
+| 25/11 (qua.) | Organização Crim. | Organização Crim. | Identificação Veicular | 12 |
+| 26/11 (qui.) | Defesa Pessoal / Condicionamento (GOE) | Crimes Eletrônicos | Crimes Eletrônicos | 12 |
+| 27/11 (sex.) | Inquérito Policial | Conduta Policial (GM Campinas) | — | 8 |
+| 28/11 (sáb.) | Crimes Eletrônicos | Crimes Eletrônicos | Conceitos de Criminalística | 12 |
+| **Total** | | | | **64 h/a** |
+
+O texto abreviado **Organização Crim.** foi vinculado provisoriamente ao módulo **Organizações Criminosas** de Investigação Policial para facilitar filtros e análises; a imagem não especifica o subtópico completo. A modalidade teórica/prática das aulas não vem explícita na grade: os registros usam o tipo neutro **Aula**. A organização do currículo, os registros existentes e a lógica de sincronização não foram alterados.
 
 ## Grade 16–21/11/2026: conclusão antecipada para cálculo
 
